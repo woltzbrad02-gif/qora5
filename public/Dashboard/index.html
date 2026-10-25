@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qora Trading Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- TradingView Technical Analysis Library -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        qora: {
+                            bg: '#f8fafc',
+                            card: '#ffffff',
+                            border: '#e2e8f0',
+                            demoRed: '#801336',
+                            sellRed: '#ff7b89',
+                            buyGreen: '#50e396',
+                            aiBlue: '#2d60f7',
+                            yellowBg: '#fffbeb',
+                            yellowBorder: '#fef08a',
+                            yellowText: '#854d0e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            user-select: none;
+            overflow-x: hidden;
+        }
+        
+         ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .ai-shadow {
+            box-shadow: 0 10px 25px -5px rgba(45, 96, 247, 0.4), 0 8px 10px -6px rgba(45, 96, 247, 0.2);
+        }
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between p-2 md:p-3 bg-slate-50">
+
+    <!-- TOP CONTAINER & MAIN APPLICATION FRAME -->
+    <div class="max-w-[1600px] w-full mx-auto space-y-2 pb-20">
+
+        <!-- 1. HEADER BAR -->
+        <header class="bg-white rounded-xl p-2 md:p-2.5 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-2">
+            <!-- Left: Logo & Deposit Funds Button -->
+            <div class="flex items-center gap-2 md:gap-3">
+                <a href="../index.html" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-bold text-sm tracking-wider shadow-inner">
+                    <div class="w-5 h-5 rounded-full border border-amber-400 flex items-center justify-center text-[10px] font-black bg-slate-800">Q</div>
+                    <span class="text-white text-xs font-bold tracking-wider">QORA</span>
+                </a>
+                <a href="../wallet/index.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-semibold transition">
+                    <i class="fa-regular fa-credit-card text-amber-600"></i>
+                    <span>Deposit Funds</span>
+                </a>
+            </div>
+
+            <!-- Center: Search All Symbols Bar -->
+            <div class="flex-1 max-w-xl min-w-[220px]">
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" id="symbolSearch" onkeyup="handleSearch(event)" placeholder="Search All Symbols (e.g. AAPL, BTC, USOIL)" class="w-full pl-9 pr-28 py-1.5 text-xs md:text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
+                    <div class="absolute right-1 flex items-center gap-1">
+                        <button id="toggleAccountBtn" onclick="toggleAccountType()" class="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-md shadow-2xs transition">
+                            <i class="fa-solid fa-sliders text-slate-400 text-[10px]"></i>
+                            <span id="toggleAccountBtnText">Switch to Live</span>
+                        </button>
+                        <button class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-slate-800 rounded-md hover:bg-slate-100 transition" title="User Profile" onclick="window.location.href='../more/index.html'">
+                            <i class="fa-regular fa-user text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Account Badge & Quick Tools -->
+            <div class="flex items-center gap-2">
+                <div id="accountBadge" class="flex flex-col items-end px-3 py-1 bg-[#801336] text-white rounded-lg cursor-pointer hover:opacity-90 transition shadow-sm" onclick="toggleAccountType()">
+                    <div class="flex items-center gap-1 text-[11px] font-semibold">
+                        <i class="fa-solid fa-chevron-down text-[9px] text-rose-300"></i>
+                        <span id="accountBalanceDisplay">Demo $10,000.00</span>
+                    </div>
+                    <span id="accountIdDisplay" class="text-[9px] text-rose-200/80 tracking-wider">DNP142887</span>
+                </div>
+
+                <button onclick="resetAccountBalance()" title="Reset / Refresh Balance" class="w-8 h-8 flex items-center justify-center border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-lg transition">
+                    <i class="fa-solid fa-rotate-right text-xs"></i>
+                </button>
+
+                <button onclick="showToast('System: Real-time price feed synchronized', 'info')" class="relative w-8 h-8 flex items-center justify-center border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 rounded-lg transition">
+                    <i class="fa-regular fa-bell text-xs"></i>
+                    <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-rose-500 rounded-full"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 2. CATEGORY SELECTOR TABS & SUB SYMBOLS -->
+        <section class="bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm space-y-2">
+            <div id="categoryContainer" class="flex items-center gap-6 overflow-x-auto border-b border-slate-100 pb-2 text-xs font-medium text-slate-500 no-scrollbar">
+                <button class="asset-cat-btn hover:text-slate-900 transition" onclick="selectCategory('Forex')">Forex</button>
+                <button id="cat-Commodities" class="asset-cat-btn text-slate-900 border-b-2 border-slate-900 pb-0.5 font-bold" onclick="selectCategory('Commodities')">Commodities</button>
+                <button class="asset-cat-btn hover:text-slate-900 transition" onclick="selectCategory('Indices')">Indices</button>
+                <button class="asset-cat-btn hover:text-slate-900 transition" onclick="selectCategory('Stocks')">Stocks</button>
+                <button class="asset-cat-btn hover:text-slate-900 transition" onclick="selectCategory('Crypto')">Crypto</button>
+                <button class="asset-cat-btn hover:text-slate-900 transition" onclick="selectCategory('Metals')">Metals</button>
+            </div>
+
+            <div id="subSymbolsList" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-0.5">
+                <!-- Dynamically Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- 3. MAIN CHART PANEL & CONTROLS -->
+        <main class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative">
+
+            <div class="p-2 border-b border-slate-100 flex items-center justify-between gap-2 overflow-x-auto text-xs bg-slate-50/50">
+                <div class="flex items-center gap-2">
+                    <div class="relative flex items-center gap-1 bg-white border border-slate-200 rounded-md px-2 py-1 shadow-2xs">
+                        <span class="text-slate-500 text-[11px] font-medium">TF</span>
+                        <select id="timeframeSelect" onchange="changeTimeframe(this.value)" class="bg-transparent font-bold text-slate-800 text-xs focus:outline-none cursor-pointer">
+                            <option value="1m">1m</option>
+                            <option value="5m">5m</option>
+                            <option value="15m" selected>15m</option>
+                            <option value="30m">30m</option>
+                            <option value="1h">1h</option>
+                            <option value="4h">4h</option>
+                            <option value="1D">1D</option>
+                        </select>
+                    </div>
+
+                    <div class="relative flex items-center gap-1 bg-white border border-slate-200 rounded-md px-2.5 py-1 shadow-2xs">
+                        <i class="fa-solid fa-chart-candlestick text-slate-500 text-xs"></i>
+                        <select id="chartTypeSelect" onchange="showToast('Chart view set to ' + this.value, 'info')" class="bg-transparent font-semibold text-slate-800 text-xs focus:outline-none cursor-pointer">
+                            <option value="Candles" selected>Chart Candles</option>
+                            <option value="Line">Line Chart</option>
+                            <option value="Bars">OHLC Bars</option>
+                            <option value="Area">Area View</option>
+                        </select>
+                    </div>
+
+                    <button onclick="showToast('Technical Indicators panel loaded', 'info')" class="w-7 h-7 flex items-center justify-center bg-white rounded-md border border-slate-200 hover:bg-slate-100 text-slate-600 transition shadow-2xs" title="Indicators">
+                        <i class="fa-solid fa-chart-line text-xs"></i>
+                    </button>
+
+                    <button onclick="showToast('Drawing tools activated', 'info')" class="w-7 h-7 flex items-center justify-center bg-white rounded-md border border-slate-200 hover:bg-slate-100 text-slate-600 transition shadow-2xs" title="Drawing Tools">
+                        <i class="fa-solid fa-pencil text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="feedStatusText">TradingView Live Feed</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 4. ALERT STATUS BANNER -->
+            <div id="marketAlert" class="mx-3 mt-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-center justify-between text-xs text-amber-900 font-medium shadow-2xs">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                    <span id="marketNoticeText">Calculating real-time market status...</span>
+                </div>
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-amber-100/80 rounded text-amber-800">Indicative</span>
+            </div>
+
+            <!-- 5. CHART AREA CONTAINER -->
+            <div class="relative w-full h-[450px] md:h-[500px] my-1 bg-white">
+                <div id="tv_chart_container" class="w-full h-full"></div>
+                <canvas id="fallbackCanvas" class="hidden absolute inset-0 w-full h-full bg-white z-0"></canvas>
+
+                <button onclick="toggleAIPanel()" class="absolute bottom-6 right-6 z-10 flex items-center gap-2 px-4 py-2 bg-[#2d60f7] hover:bg-blue-700 text-white rounded-full font-semibold text-xs ai-shadow transition-all transform hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+                    <span>Qora AI</span>
+                </button>
+
+                <div id="aiModal" class="hidden absolute bottom-18 right-6 z-20 w-80 bg-white rounded-xl shadow-2xl border border-slate-200 p-4 space-y-3 transition-all animate-fadeIn">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-blue-600"></i>
+                            <span class="font-bold text-xs text-slate-800">Qora AI Signals Engine</span>
+                        </div>
+                        <button onclick="toggleAIPanel()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-sm"></i></button>
+                    </div>
+                    <p id="aiModalText" class="text-xs text-slate-600 leading-relaxed">
+                        <strong class="text-slate-800">Analysis for USOIL (15m):</strong> Steady upward bullish momentum detected.
+                    </p>
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 font-medium">Confidence Score</span>
+                        <span id="aiConfidenceText" class="font-bold text-emerald-600">92% Bullish</span>
+                    </div>
+                    <button onclick="applyAISuggestion()" class="w-full py-2 bg-[#2d60f7] hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition shadow-sm">Execute Suggested Trade</button>
+                </div>
+            </div>
+
+            <!-- 6. TRADE EXECUTION BAR -->
+            <div class="p-3 bg-white border-t border-slate-200 grid grid-cols-12 gap-2 md:gap-3 items-center">
+                <button onclick="executeTrade('SELL')" class="col-span-5 py-3 px-4 bg-[#ff7b89] hover:bg-rose-400 text-white rounded-xl shadow-sm transition flex flex-col items-center justify-center active:scale-[0.99] border border-rose-300">
+                    <span class="text-[10px] tracking-wider uppercase opacity-90 font-bold">SELL</span>
+                    <span id="sellPriceVal" class="text-base md:text-xl font-black text-slate-900 mt-0.5">103.27</span>
+                </button>
+
+                <div class="col-span-2 flex flex-col items-center justify-center border border-slate-200 rounded-xl py-1.5 px-2 bg-slate-50 shadow-2xs">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">LOT</span>
+                    <div class="flex items-center gap-1 w-full justify-center mt-0.5">
+                        <button onclick="adjustLot(-0.01)" class="text-slate-400 hover:text-slate-800 font-bold text-xs px-1">-</button>
+                        <input type="number" id="lotInput" value="0.10" step="0.01" min="0.01" class="w-10 text-center text-xs font-extrabold bg-transparent text-slate-900 focus:outline-none">
+                        <button onclick="adjustLot(0.01)" class="text-slate-400 hover:text-slate-800 font-bold text-xs px-1">+</button>
+                    </div>
+                </div>
+
+                <button onclick="executeTrade('BUY')" class="col-span-5 py-3 px-4 bg-[#50e396] hover:bg-emerald-400 text-white rounded-xl shadow-sm transition flex flex-col items-center justify-center active:scale-[0.99] border border-emerald-300">
+                    <span class="text-[10px] tracking-wider uppercase opacity-90 font-bold">BUY</span>
+                    <span id="buyPriceVal" class="text-base md:text-xl font-black text-slate-900 mt-0.5">103.27</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- 7. BOTTOM DOCK NAVIGATION BAR -->
+    <div class="fixed bottom-3 left-1/2 -translate-x-1/2 z-30 w-[95%] max-w-md">
+        <nav class="bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl rounded-full px-5 py-2 flex items-center justify-between text-slate-500">
+            <a href="../menu/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+                <i class="fa-solid fa-bars text-sm"></i>
+                <span>Menu</span>
+            </a>
+            <a href="../trades/index.html" class="nav-item relative flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+                <span id="tradesProfitBadge" class="absolute -top-2 bg-sky-100 text-sky-600 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-sky-200 shadow-2xs">+ $8.52</span>
+                <i class="fa-solid fa-wallet text-sm mt-1"></i>
+                <span>Trades</span>
+            </a>
+            <a href="index.html" class="nav-item flex flex-col items-center gap-0.5 text-rose-600 font-semibold text-[10px]">
+                <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="fa-solid fa-house text-sm"></i>
+                </div>
+                <span>Trade chart</span>
+            </a>
+            <a href="../markets&news/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+                <i class="fa-regular fa-newspaper text-sm"></i>
+                <span>Markets&News</span>
+            </a>
+            <a href="../more/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+                <i class="fa-regular fa-user text-sm"></i>
+                <span>More</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- INSUFFICIENT FUNDS MODAL -->
+    <div id="depositModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100 animate-fadeIn">
+            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+            <div class="space-y-1">
+                <h3 class="text-base font-bold text-slate-900">Insufficient Account Funds</h3>
+                <p class="text-xs text-slate-500">Your Live Real Account balance is $0.00. Please deposit funds into your account to execute live trades.</p>
+            </div>
+            <div class="pt-2 flex flex-col gap-2">
+                <a href="../wallet/index.html" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl transition shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <span>Deposit Funds Now</span>
+                </a>
+                <button onclick="closeDepositModal()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST CONTAINER -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform transition-all duration-300 -translate-y-20 opacity-0 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-medium border border-slate-700">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <div>
+            <div id="toastTitle" class="font-bold text-slate-100">Trade Executed</div>
+            <div id="toastMsg" class="text-slate-300 text-[11px]">BUY 0.10 USOIL at 103.27</div>
+        </div>
+    </div>
+
+    <!-- 8. APPLICATION SCRIPTING & CHART ENGINE -->
+    <script>
+        const symbolsDatabase = {
+            'USOIL': {
+                tvSymbol: 'TVC:USOIL',
+                category: 'Commodities',
+                price: 103.27,
+                profitBadge: '+$8.52',
+                notice: 'USOIL market session closed.',
+                aiText: 'Steady upward bullish momentum detected.',
+                aiConfidence: '92% Bullish'
+            },
+            'NATGAS': {
+                tvSymbol: 'NYMEX:NG1!',
+                category: 'Commodities',
+                price: 3.05,
+                profitBadge: '+$3.62',
+                notice: 'NATGAS market session closed.',
+                aiText: 'Massive bullish breakout candle detected.',
+                aiConfidence: '88% Bullish'
+            },
+            'EURUSD': {
+                tvSymbol: 'FX:EURUSD',
+                category: 'Forex',
+                price: 1.0845,
+                profitBadge: '+$12.30',
+                notice: 'Forex session active - High liquidity volume.',
+                aiText: 'Range-bound movement between support and resistance.',
+                aiConfidence: '80% Neutral'
+            },
+            'GBPUSD': {
+                tvSymbol: 'FX:GBPUSD',
+                category: 'Forex',
+                price: 1.2910,
+                profitBadge: '+$5.40',
+                notice: 'Forex session active.',
+                aiText: 'Bullish momentum continuation expected.',
+                aiConfidence: '85% Bullish'
+            },
+            'USDJPY': {
+                tvSymbol: 'FX:USDJPY',
+                category: 'Forex',
+                price: 154.20,
+                profitBadge: '-$2.10',
+                notice: 'Forex session active.',
+                aiText: 'Bearish retracement expected towards support.',
+                aiConfidence: '78% Bearish'
+            },
+            'AAPL': {
+                tvSymbol: 'NASDAQ:AAPL',
+                category: 'Stocks',
+                price: 232.50,
+                profitBadge: '+$18.90',
+                notice: 'US Stock Exchange Market Open.',
+                aiText: 'Earnings drive steady accumulation trend.',
+                aiConfidence: '91% Bullish'
+            },
+            'NVDA': {
+                tvSymbol: 'NASDAQ:NVDA',
+                category: 'Stocks',
+                price: 138.25,
+                profitBadge: '+$45.10',
+                notice: 'US Stock Exchange Market Open.',
+                aiText: 'Strong AI sector demand.',
+                aiConfidence: '94% Bullish'
+            },
+            'TSLA': {
+                tvSymbol: 'NASDAQ:TSLA',
+                category: 'Stocks',
+                price: 218.40,
+                profitBadge: '-$8.60',
+                notice: 'US Stock Exchange Market Open.',
+                aiText: 'High volatility breakout imminent.',
+                aiConfidence: '72% Neutral'
+            },
+            'BTCUSD': {
+                tvSymbol: 'BITSTAMP:BTCUSD',
+                category: 'Crypto',
+                price: 68450.00,
+                profitBadge: '+$120.00',
+                notice: '24/7 Live Crypto Feed Connected.',
+                aiText: 'Testing major resistance level.',
+                aiConfidence: '89% Bullish'
+            },
+            'ETHUSD': {
+                tvSymbol: 'BITSTAMP:ETHUSD',
+                category: 'Crypto',
+                price: 2640.00,
+                profitBadge: '+$14.20',
+                notice: '24/7 Live Crypto Feed Connected.',
+                aiText: 'Consolidation phase before key resistance.',
+                aiConfidence: '82% Bullish'
+            },
+            'XAUUSD': {
+                tvSymbol: 'OANDA:XAUUSD',
+                category: 'Metals',
+                price: 2735.80,
+                profitBadge: '+$34.10',
+                notice: 'Gold Spot Market Trading Live.',
+                aiText: 'Strong safe-haven demand.',
+                aiConfidence: '95% Bullish'
+            },
+            'XAGUSD': {
+                tvSymbol: 'OANDA:XAGUSD',
+                category: 'Metals',
+                price: 33.70,
+                profitBadge: '+$6.80',
+                notice: 'Silver Spot Market Trading Live.',
+                aiText: 'Outperforming industrial metals index.',
+                aiConfidence: '87% Bullish'
+            },
+            'US30': {
+                tvSymbol: 'CURRENCYCOM:US30',
+                category: 'Indices',
+                price: 42110.00,
+                profitBadge: '+$15.00',
+                notice: 'Dow Jones Index Live Feed Active.',
+                aiText: 'Steady momentum heading towards all-time high.',
+                aiConfidence: '86% Bullish'
+            },
+            'SPX500': {
+                tvSymbol: 'OANDA:SPX500USD',
+                category: 'Indices',
+                price: 5815.00,
+                profitBadge: '+$22.40',
+                notice: 'S&P 500 Index Live Feed Active.',
+                aiText: 'High institutional accumulation score.',
+                aiConfidence: '90% Bullish'
+            }
+        };
+
+        const categorySymbols = {
+            'Forex': ['EURUSD', 'GBPUSD', 'USDJPY'],
+            'Commodities': ['USOIL', 'NATGAS'],
+            'Indices': ['US30', 'SPX500'],
+            'Stocks': ['AAPL', 'NVDA', 'TSLA'],
+            'Crypto': ['BTCUSD', 'ETHUSD'],
+            'Metals': ['XAUUSD', 'XAGUSD']
+        };
+
+        let currentSymbol = 'USOIL';
+        let currentCategory = 'Commodities';
+        let isLiveAccount = false;
+        let demoBalance = 10000.00;
+        let liveBalance = 0.00;
+
+        // Load Persistent User Profile Info from localStorage
+        function loadUserProfile() {
+            try {
+                const currentUserData = localStorage.getItem('currentUser');
+                if (currentUserData) {
+                    const user = JSON.parse(currentUserData);
+                    // If name is saved, you can display or use it
+                    const userName = user.fullName || user.email || 'Trader';
+                    // Optional: Update account display ID or greeting if desired
+                }
+            } catch (e) {
+                console.error("Could not load user profile:", e);
+            }
+        }
+
+        // Real-Time Dynamic Market Countdown Calculation
+        function updateMarketCountdown() {
+            const now = new Date();
+            // Calculate time until next market open (e.g., Sunday 22:00 UTC)
+            const targetDay = 0; // Sunday
+            const targetHour = 22;
+
+            let targetTime = new Date();
+            targetTime.setUTCHours(targetHour, 0, 0, 0);
+
+            let dayOfWeek = now.getUTCDay();
+            let diffDays = targetDay - dayOfWeek;
+            if (diffDays <= 0 && (now.getUTCHours() >= targetHour)) {
+                diffDays += 7;
+            }
+            targetTime.setUTCDate(now.getUTCDate() + diffDays);
+
+            let distance = targetTime - now;
+            if (distance < 0) distance = 0;
+
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            const noticeEl = document.getElementById('marketNoticeText');
+            if (noticeEl) {
+                const symbolData = symbolsDatabase[currentSymbol];
+                if (symbolData && symbolData.category === 'Commodities') {
+                    noticeEl.textContent = `${currentSymbol} market opens in ${hours}h ${minutes}m - Sun 22:00 UTC.`;
+                } else if (symbolData) {
+                    noticeEl.textContent = symbolData.notice;
+                }
+            }
+        }
+
+        function selectCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.asset-cat-btn').forEach(btn => {
+                btn.classList.remove('text-slate-900', 'border-b-2', 'border-slate-900', 'font-bold');
+                if (btn.textContent.includes(category)) {
+                    btn.classList.add('text-slate-900', 'border-b-2', 'border-slate-900', 'font-bold');
+                }
+            });
+            renderSubSymbols();
+            if (categorySymbols[category] && categorySymbols[category].length > 0) {
+                switchSymbol(categorySymbols[category][0]);
+            }
+        }
+
+        function renderSubSymbols() {
+            const container = document.getElementById('subSymbolsList');
+            container.innerHTML = '';
+            const syms = categorySymbols[currentCategory] || [];
+            syms.forEach(sym => {
+                const isSelected = sym === currentSymbol;
+                const btn = document.createElement('button');
+                btn.className = `px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 border ${isSelected ? 'bg-slate-900 text-white border-slate-900 shadow-sm' : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200'}`;
+                btn.innerHTML = `<span>${sym}</span><span class="text-[10px] opacity-80">${symbolsDatabase[sym].price}</span>`;
+                btn.onclick = () => switchSymbol(sym);
+                container.appendChild(btn);
+            });
+        }
+
+        function switchSymbol(sym) {
+            currentSymbol = sym;
+            renderSubSymbols();
+            const data = symbolsDatabase[sym];
+            if (data) {
+                document.getElementById('sellPriceVal').textContent = data.price.toFixed(2);
+                document.getElementById('buyPriceVal').textContent = data.price.toFixed(2);
+                document.getElementById('marketNoticeText').textContent = data.notice;
+                document.getElementById('aiModalText').innerHTML = data.aiText;
+                document.getElementById('aiConfidenceText').textContent = data.aiConfidence;
+                initTradingViewWidget(data.tvSymbol);
+            }
+        }
+
+        function initTradingViewWidget(tvSym) {
+            document.getElementById('tv_chart_container').innerHTML = '';
+            try {
+                new TradingView.widget({
+                    "autosize": true,
+                    "symbol": tvSym,
+                    "interval": "15",
+                    "timezone": "Etc/UTC",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "hide_top_toolbar": false,
+                    "save_image": false,
+                    "container_id": "tv_chart_container"
+                });
+            } catch (e) {
+                console.error("TradingView widget failed to load:", e);
+            }
+        }
+
+        function toggleAccountType() {
+            isLiveAccount = !isLiveAccount;
+            const btnText = document.getElementById('toggleAccountBtnText');
+            const badge = document.getElementById('accountBadge');
+            const balanceDisp = document.getElementById('accountBalanceDisplay');
+            const idDisp = document.getElementById('accountIdDisplay');
+
+            if (isLiveAccount) {
+                btnText.textContent = "Switch to Demo";
+                badge.className = "flex flex-col items-end px-3 py-1 bg-slate-900 text-white rounded-lg cursor-pointer hover:opacity-90 transition shadow-sm";
+                balanceDisp.textContent = `Live $${liveBalance.toFixed(2)}`;
+                idDisp.textContent = "LIV982104";
+                showToast("Switched to Real Live Account", "info");
+            } else {
+                btnText.textContent = "Switch to Live";
+                badge.className = "flex flex-col items-end px-3 py-1 bg-[#801336] text-white rounded-lg cursor-pointer hover:opacity-90 transition shadow-sm";
+                balanceDisp.textContent = `Demo $${demoBalance.toFixed(2)}`;
+                idDisp.textContent = "DNP142887";
+                showToast("Switched to Demo Practice Account", "info");
+            }
+        }
+
+        function resetAccountBalance() {
+            if (isLiveAccount) {
+                liveBalance = 500.00;
+                document.getElementById('accountBalanceDisplay').textContent = `Live $${liveBalance.toFixed(2)}`;
+                showToast("Live Account balance refreshed", "success");
+            } else {
+                demoBalance = 10000.00;
+                document.getElementById('accountBalanceDisplay').textContent = `Demo $${demoBalance.toFixed(2)}`;
+                showToast("Demo balance reset to $10,000.00", "success");
+            }
+        }
+
+        function adjustLot(amount) {
+            const input = document.getElementById('lotInput');
+            let val = parseFloat(input.value) + amount;
+            if (val < 0.01) val = 0.01;
+            input.value = val.toFixed(2);
+        }
+
+        function executeTrade(type) {
+            if (isLiveAccount && liveBalance <= 0) {
+                document.getElementById('depositModal').classList.remove('hidden');
+                return;
+            }
+            const lot = document.getElementById('lotInput').value;
+            const price = symbolsDatabase[currentSymbol].price;
+            showToast("Trade Executed Successfully", "success");
+        }
+
+        function closeDepositModal() {
+            document.getElementById('depositModal').classList.add('hidden');
+        }
+
+        function toggleAIPanel() {
+            const modal = document.getElementById('aiModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function applyAISuggestion() {
+            toggleAIPanel();
+            executeTrade('BUY');
+        }
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = message;
+            toast.classList.remove('-translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('-translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        window.onload = function() {
+            loadUserProfile();
+            selectCategory('Commodities');
+            setInterval(updateMarketCountdown, 1000);
+            updateMarketCountdown();
+        };
+    </script>
+</body>
+
+</html>
