@@ -60,7 +60,7 @@
     <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-md">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-2.5">
+            <a href="index.html" class="flex items-center gap-2.5">
                 <div class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white shadow-sm ring-2 ring-slate-900/10">
                     <span class="font-bold tracking-tighter text-amber-400">Q</span>
                 </div>
@@ -72,13 +72,13 @@
 
             <!-- Desktop Nav Links -->
             <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600">
-                <a href="#markets" class="transition hover:text-slate-900">Markets</a>
-                <a href="#ai-trading" class="transition hover:text-slate-900">AI Trading</a>
-                <a href="#blog" class="transition hover:text-slate-900">Blog</a>
-                <a href="#learning" class="transition hover:text-slate-900">Learning Center</a>
-                <a href="#help" class="transition hover:text-slate-900">Help Center</a>
-                <a href="#about" class="transition hover:text-slate-900">About</a>
-                <a href="#contact" class="transition hover:text-slate-900">Contact</a>
+                <a href="Markets%26News/index.html" class="transition hover:text-slate-900">Markets</a>
+                <a href="Dashboard/index.html" class="transition hover:text-slate-900">AI Trading</a>
+                <a href="More/index.html" class="transition hover:text-slate-900">Blog</a>
+                <a href="More/index.html" class="transition hover:text-slate-900">Learning Center</a>
+                <a href="More/index.html" class="transition hover:text-slate-900">Help Center</a>
+                <a href="More/index.html" class="transition hover:text-slate-900">About</a>
+                <a href="More/index.html" class="transition hover:text-slate-900">Contact</a>
             </nav>
 
             <!-- Auth Action Buttons (Logged Out State) -->
@@ -97,7 +97,7 @@
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
                     <span id="user-display-email" class="text-xs font-semibold text-slate-700">user@qora.com</span>
                 </div>
-                <a href="dashboard/index.html" class="rounded-lg border border-brand-red bg-brand-red px-3 py-1.5 text-xs font-semibold text-white shadow-xs transition hover:bg-brand-red-hover">
+                <a href="Dashboard/index.html" class="rounded-lg border border-brand-red bg-brand-red px-3 py-1.5 text-xs font-semibold text-white shadow-xs transition hover:bg-brand-red-hover">
                     Dashboard
                 </a>
                 <button onclick="handleLogout()" class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs transition hover:bg-slate-50">
@@ -200,11 +200,11 @@
                 <div>
                     <h4 class="text-xs font-bold tracking-wider text-slate-400 uppercase mb-4">Quick Links</h4>
                     <ul class="space-y-2 text-xs font-medium text-slate-600">
-                        <li><a href="#" class="hover:text-slate-900">Markets</a></li>
-                        <li><a href="#" class="hover:text-slate-900">Market Watch</a></li>
-                        <li><a href="#" class="hover:text-slate-900">Learning Center</a></li>
-                        <li><a href="#" class="hover:text-slate-900">Terms & Conditions</a></li>
-                        <li><a href="#" class="hover:text-slate-900">Privacy Policy</a></li>
+                        <li><a href="Markets%26News/index.html" class="hover:text-slate-900">Markets</a></li>
+                        <li><a href="Trades/index.html" class="hover:text-slate-900">Market Watch</a></li>
+                        <li><a href="More/index.html" class="hover:text-slate-900">Learning Center</a></li>
+                        <li><a href="More/index.html" class="hover:text-slate-900">Terms & Conditions</a></li>
+                        <li><a href="More/index.html" class="hover:text-slate-900">Privacy Policy</a></li>
                     </ul>
                 </div>
 
@@ -267,7 +267,7 @@
                         <input type="checkbox" class="rounded border-slate-300 text-brand-red focus:ring-brand-red" />
                         Remember Me
                     </label>
-                    <a href="#" class="font-semibold text-brand-red hover:underline">Forgot Password</a>
+                    <a href="More/index.html" class="font-semibold text-brand-red hover:underline">Forgot Password</a>
                 </div>
                 <button type="submit" id="login-btn" class="w-full rounded-xl bg-brand-red py-2.5 text-xs font-bold text-white shadow-md hover:bg-brand-red-hover transition mt-2">
                     Login
@@ -478,7 +478,7 @@
             };
             localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(sessionData));
 
-            window.location.href = "dashboard/index.html";
+            window.location.href = "Dashboard/index.html";
         }
 
         // Logout Handler

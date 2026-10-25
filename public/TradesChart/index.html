@@ -86,12 +86,12 @@
         <header class="bg-white rounded-xl p-2 md:p-2.5 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-2">
             <!-- Left: Logo & Deposit Funds Button -->
             <div class="flex items-center gap-2 md:gap-3">
-                <a href="index.html" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-bold text-sm tracking-wider shadow-inner">
+                <a href="/index.html" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-bold text-sm tracking-wider shadow-inner">
                     <div class="w-5 h-5 rounded-full border border-amber-400 flex items-center justify-center text-[10px] font-black bg-slate-800">Q</div>
                     <span class="text-white text-xs font-bold tracking-wider">QORA</span>
                 </a>
                 <!-- Deposit Funds directly links to wallet/index.html -->
-                <a href="wallet/index.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-semibold transition">
+                <a href="/wallet/index.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-semibold transition">
                     <i class="fa-regular fa-credit-card text-amber-600"></i>
                     <span>Deposit Funds</span>
                 </a>
@@ -107,7 +107,7 @@
                             <i class="fa-solid fa-sliders text-slate-400 text-[10px]"></i>
                             <span id="toggleAccountBtnText">Switch to Live</span>
                         </button>
-                        <button class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-slate-800 rounded-md hover:bg-slate-100 transition" title="User Profile" onclick="window.location.href='more/index.html'">
+                        <button class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-slate-800 rounded-md hover:bg-slate-100 transition" title="User Profile" onclick="window.location.href='/More/index.html'">
                             <i class="fa-regular fa-user text-xs"></i>
                         </button>
                     </div>
@@ -207,11 +207,11 @@
                 </div>
             </div>
 
-            <!-- 4. ALERT STATUS BANNER -->
+            <!-- 4. ALERT STATUS BANNER (updated in real time by JS) -->
             <div id="marketAlert" class="mx-3 mt-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-center justify-between text-xs text-amber-900 font-medium shadow-2xs">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
-                    <span id="marketNoticeText">USOIL is closed. Opens in 13h 40m - Sun 22:00 UTC.</span>
+                    <span id="marketNoticeText">Calculating market status...</span>
                 </div>
                 <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-amber-100/80 rounded text-amber-800">Indicative</span>
             </div>
@@ -283,13 +283,13 @@
         <nav class="bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl rounded-full px-5 py-2 flex items-center justify-between text-slate-500">
 
             <!-- Menu -->
-            <a href="menu/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+            <a href="/menu/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
                 <i class="fa-solid fa-bars text-sm"></i>
                 <span>Menu</span>
             </a>
 
             <!-- Trades -->
-            <a href="trades/index.html" class="nav-item relative flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+            <a href="/Trades/index.html" class="nav-item relative flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
                 <!-- Profit Tag -->
                 <span id="tradesProfitBadge" class="absolute -top-2 bg-sky-100 text-sky-600 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-sky-200 shadow-2xs">+ $8.52</span>
                 <i class="fa-solid fa-wallet text-sm mt-1"></i>
@@ -297,7 +297,7 @@
             </a>
 
             <!-- Trade Chart (Active Highlighted) -->
-            <a href="tradeschart/index.html" class="nav-item flex flex-col items-center gap-0.5 text-rose-600 font-semibold text-[10px]">
+            <a href="/TradesChart/index.html" class="nav-item flex flex-col items-center gap-0.5 text-rose-600 font-semibold text-[10px]">
                 <div class="w-5 h-5 flex items-center justify-center">
                     <i class="fa-solid fa-house text-sm"></i>
                 </div>
@@ -305,13 +305,13 @@
             </a>
 
             <!-- Markets & News -->
-            <a href="markets&news/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+            <a href="/Markets%26News/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
                 <i class="fa-regular fa-newspaper text-sm"></i>
                 <span>Markets&News</span>
             </a>
 
             <!-- More -->
-            <a href="more/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
+            <a href="/More/index.html" class="nav-item flex flex-col items-center gap-0.5 hover:text-slate-900 transition text-[10px] font-medium">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span>More</span>
             </a>
@@ -330,7 +330,7 @@
                 <p class="text-xs text-slate-500">Your Live Real Account balance is $0.00. Please deposit funds into your account to execute live trades.</p>
             </div>
             <div class="pt-2 flex flex-col gap-2">
-                <a href="wallet/index.html" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl transition shadow-sm flex items-center justify-center gap-2">
+                <a href="/wallet/index.html" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl transition shadow-sm flex items-center justify-center gap-2">
                     <i class="fa-regular fa-credit-card"></i>
                     <span>Deposit Funds Now</span>
                 </a>
@@ -359,7 +359,6 @@
                 category: 'Commodities',
                 price: 103.27,
                 profitBadge: '+$8.52',
-                notice: 'USOIL is closed. Opens in 13h 40m - Sun 22:00 UTC.',
                 aiText: '<strong class="text-slate-800">Analysis for USOIL (15m):</strong> Steady upward bullish momentum detected from 97.00 up through 103.00. Consolidation at 103.27 suggests high probability of reaching 104.50.',
                 aiConfidence: '92% Bullish',
                 minPrice: 95.50,
@@ -431,7 +430,6 @@
                 category: 'Commodities',
                 price: 3.05,
                 profitBadge: '+$3.62',
-                notice: 'NATGAS is closed. Opens in 13h 45m - Sun 22:00 UTC.',
                 aiText: '<strong class="text-slate-800">Analysis for NATGAS (15m):</strong> Massive bullish breakout candle detected at 2.72. Market now consolidating near 3.05 resistance.',
                 aiConfidence: '88% Bullish',
                 minPrice: 2.65,
@@ -483,7 +481,6 @@
                 category: 'Forex',
                 price: 1.0845,
                 profitBadge: '+$12.30',
-                notice: 'Forex session active - High liquidity volume.',
                 aiText: '<strong class="text-slate-800">Analysis for EURUSD:</strong> Range-bound movement between 1.0820 support and 1.0880 resistance.',
                 aiConfidence: '80% Neutral'
             },
@@ -492,7 +489,6 @@
                 category: 'Forex',
                 price: 1.2910,
                 profitBadge: '+$5.40',
-                notice: 'Forex session active.',
                 aiText: '<strong class="text-slate-800">Analysis for GBPUSD:</strong> Bullish momentum target 1.2980.',
                 aiConfidence: '85% Bullish'
             },
@@ -501,7 +497,6 @@
                 category: 'Forex',
                 price: 154.20,
                 profitBadge: '-$2.10',
-                notice: 'Forex session active.',
                 aiText: '<strong class="text-slate-800">Analysis for USDJPY:</strong> Bearish retracement expected towards 153.50.',
                 aiConfidence: '78% Bearish'
             },
@@ -510,7 +505,6 @@
                 category: 'Stocks',
                 price: 232.50,
                 profitBadge: '+$18.90',
-                notice: 'US Stock Exchange Market Open.',
                 aiText: '<strong class="text-slate-800">Analysis for AAPL:</strong> Earnings drive steady accumulation trend towards 240.00.',
                 aiConfidence: '91% Bullish'
             },
@@ -519,7 +513,6 @@
                 category: 'Stocks',
                 price: 138.25,
                 profitBadge: '+$45.10',
-                notice: 'US Stock Exchange Market Open.',
                 aiText: '<strong class="text-slate-800">Analysis for NVDA:</strong> Strong AI sector demand maintaining upward trajectory.',
                 aiConfidence: '94% Bullish'
             },
@@ -528,7 +521,6 @@
                 category: 'Stocks',
                 price: 218.40,
                 profitBadge: '-$8.60',
-                notice: 'US Stock Exchange Market Open.',
                 aiText: '<strong class="text-slate-800">Analysis for TSLA:</strong> High volatility breakout imminent near 225.00.',
                 aiConfidence: '72% Neutral'
             },
@@ -537,7 +529,6 @@
                 category: 'Crypto',
                 price: 68450.00,
                 profitBadge: '+$120.00',
-                notice: '24/7 Live Crypto Feed Connected.',
                 aiText: '<strong class="text-slate-800">Analysis for BTCUSD:</strong> Testing major resistance level at $70,000.',
                 aiConfidence: '89% Bullish'
             },
@@ -546,7 +537,6 @@
                 category: 'Crypto',
                 price: 2640.00,
                 profitBadge: '+$14.20',
-                notice: '24/7 Live Crypto Feed Connected.',
                 aiText: '<strong class="text-slate-800">Analysis for ETHUSD:</strong> Consolidation phase before key resistance test.',
                 aiConfidence: '82% Bullish'
             },
@@ -555,7 +545,6 @@
                 category: 'Metals',
                 price: 2735.80,
                 profitBadge: '+$34.10',
-                notice: 'Gold Spot Market Trading Live.',
                 aiText: '<strong class="text-slate-800">Analysis for Gold (XAUUSD):</strong> Strong safe-haven demand pushing towards 2750.00 target.',
                 aiConfidence: '95% Bullish'
             },
@@ -564,7 +553,6 @@
                 category: 'Metals',
                 price: 33.70,
                 profitBadge: '+$6.80',
-                notice: 'Silver Spot Market Trading Live.',
                 aiText: '<strong class="text-slate-800">Analysis for Silver (XAGUSD):</strong> Outperforming industrial metals index.',
                 aiConfidence: '87% Bullish'
             },
@@ -573,7 +561,6 @@
                 category: 'Indices',
                 price: 42110.00,
                 profitBadge: '+$15.00',
-                notice: 'Dow Jones Index Live Feed Active.',
                 aiText: '<strong class="text-slate-800">Analysis for US30:</strong> Steady momentum heading towards all-time high zone.',
                 aiConfidence: '86% Bullish'
             },
@@ -582,7 +569,6 @@
                 category: 'Indices',
                 price: 5815.00,
                 profitBadge: '+$22.40',
-                notice: 'S&P 500 Index Live Feed Active.',
                 aiText: '<strong class="text-slate-800">Analysis for SPX500:</strong> High institutional accumulation score.',
                 aiConfidence: '90% Bullish'
             }
@@ -596,6 +582,171 @@
             'Crypto': ['BTCUSD', 'ETHUSD'],
             'Metals': ['XAUUSD', 'XAGUSD']
         };
+
+        // ============ REAL-TIME MARKET HOURS ENGINE ============
+        // Market schedules expressed in UTC:
+        //  - Crypto: open 24/7
+        //  - Forex / Commodities / Metals / Indices: Sun 22:00 UTC -> Fri 22:00 UTC
+        //  - US Stocks: Mon-Fri 13:30 UTC -> 20:00 UTC
+        const marketSchedules = {
+            'Crypto': {
+                alwaysOpen: true
+            },
+            'Forex': {
+                weekly: true,
+                openDayUTC: 0, // Sunday
+                openHourUTC: 22,
+                closeDayUTC: 5, // Friday
+                closeHourUTC: 22
+            },
+            'Commodities': {
+                weekly: true,
+                openDayUTC: 0,
+                openHourUTC: 22,
+                closeDayUTC: 5,
+                closeHourUTC: 22
+            },
+            'Metals': {
+                weekly: true,
+                openDayUTC: 0,
+                openHourUTC: 22,
+                closeDayUTC: 5,
+                closeHourUTC: 22
+            },
+            'Indices': {
+                weekly: true,
+                openDayUTC: 0,
+                openHourUTC: 22,
+                closeDayUTC: 5,
+                closeHourUTC: 22
+            },
+            'Stocks': {
+                daily: true,
+                daysUTC: [1, 2, 3, 4, 5], // Mon - Fri
+                openHourUTC: 13,
+                openMinuteUTC: 30,
+                closeHourUTC: 20,
+                closeMinuteUTC: 0
+            }
+        };
+
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        // Compute market status + countdown for the current symbol
+        function computeMarketStatus(symbolKey) {
+            const data = symbolsDatabase[symbolKey] || {};
+            const category = data.category || 'Forex';
+            const schedule = marketSchedules[category] || marketSchedules['Forex'];
+
+            // Crypto is always open
+            if (schedule.alwaysOpen) {
+                return {
+                    isOpen: true,
+                    text: `${symbolKey} market is OPEN - 24/7 Live Crypto Feed Connected.`
+                };
+            }
+
+            const now = new Date();
+            const day = now.getUTCDay(); // 0 = Sun ... 6 = Sat
+            const hour = now.getUTCHours();
+            const minute = now.getUTCMinutes();
+            const nowMinutes = day * 1440 + hour * 60 + minute; // minutes since start of week (Sun 00:00 UTC)
+
+            if (schedule.weekly) {
+                const openMinutes = schedule.openDayUTC * 1440 + schedule.openHourUTC * 60; // Sun 22:00
+                const closeMinutes = schedule.closeDayUTC * 1440 + schedule.closeHourUTC * 60; // Fri 22:00
+
+                if (nowMinutes >= openMinutes && nowMinutes < closeMinutes) {
+                    return {
+                        isOpen: true,
+                        text: `${symbolKey} market is OPEN - Trading live until Fri 22:00 UTC.`
+                    };
+                }
+
+                // Market closed: find next open time
+                let nextOpen = openMinutes;
+                if (nowMinutes >= closeMinutes) {
+                    // After Friday close -> next open is the following Sunday 22:00
+                    nextOpen = openMinutes + 7 * 1440;
+                }
+                // If before Sunday open (e.g. Fri night / Sat), nextOpen stays this Sunday 22:00
+
+                const diffMin = nextOpen - nowMinutes;
+                const d = Math.floor(diffMin / 1440);
+                const h = Math.floor((diffMin % 1440) / 60);
+                const m = diffMin % 60;
+
+                const openLabel = `${dayNames[schedule.openDayUTC]} ${String(schedule.openHourUTC).padStart(2, '0')}:00 UTC`;
+                return {
+                    isOpen: false,
+                    text: `${symbolKey} is closed. Opens in ${d}d ${h}h ${m}m - ${openLabel}.`
+                };
+            }
+
+            if (schedule.daily) {
+                // US Stocks: check intraday window Mon-Fri
+                const isOpenDay = schedule.daysUTC.includes(day);
+                const openMin = schedule.openHourUTC * 60 + schedule.openMinuteUTC; // 13:30
+                const closeMin = schedule.closeHourUTC * 60 + schedule.closeMinuteUTC; // 20:00
+                const dayMinutes = hour * 60 + minute;
+
+                if (isOpenDay && dayMinutes >= openMin && dayMinutes < closeMin) {
+                    return {
+                        isOpen: true,
+                        text: `${symbolKey} market is OPEN - US Stock Exchange Market Open (closes 20:00 UTC).`
+                    };
+                }
+
+                // Find next open day & time
+                let daysUntil = 0;
+                let checkDay = day;
+                if (isOpenDay && dayMinutes < openMin) {
+                    daysUntil = 0; // opens later today
+                } else {
+                    daysUntil = 1;
+                    checkDay = (day + 1) % 7;
+                    while (!schedule.daysUTC.includes(checkDay)) {
+                        daysUntil++;
+                        checkDay = (checkDay + 1) % 7;
+                    }
+                }
+
+                const diffMin = daysUntil * 1440 + (openMin - dayMinutes);
+                const d = Math.floor(diffMin / 1440);
+                const h = Math.floor((diffMin % 1440) / 60);
+                const m = diffMin % 60;
+
+                const openLabel = `${dayNames[checkDay]} ${String(schedule.openHourUTC).padStart(2, '0')}:${String(schedule.openMinuteUTC).padStart(2, '0')} UTC`;
+                return {
+                    isOpen: false,
+                    text: `${symbolKey} is closed. Opens in ${d}d ${h}h ${m}m - ${openLabel}.`
+                };
+            }
+
+            return {
+                isOpen: true,
+                text: `${symbolKey} market live feed active.`
+            };
+        }
+
+        // Update the alert banner text in real time (every second)
+        function updateMarketNotice() {
+            const status = computeMarketStatus(currentSymbol);
+            const noticeEl = document.getElementById('marketNoticeText');
+            const bannerEl = document.getElementById('marketAlert');
+
+            noticeEl.innerText = status.text;
+
+            if (status.isOpen) {
+                // Green styling while the market is open
+                bannerEl.className = 'mx-3 mt-3 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center justify-between text-xs text-emerald-900 font-medium shadow-2xs';
+                noticeEl.previousElementSibling.className = 'fa-solid fa-circle-check text-emerald-600';
+            } else {
+                // Amber styling while the market is closed
+                bannerEl.className = 'mx-3 mt-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-center justify-between text-xs text-amber-900 font-medium shadow-2xs';
+                noticeEl.previousElementSibling.className = 'fa-solid fa-triangle-exclamation text-amber-600';
+            }
+        }
 
         // Application State Variables
         let currentSymbol = 'USOIL';
@@ -785,7 +936,6 @@
                 tvSymbol: `TVC:${sym}`,
                 price: 100.00,
                 profitBadge: '+$5.00',
-                notice: `${sym} market live feed active.`,
                 aiText: `<strong class="text-slate-800">Analysis for ${sym}:</strong> Market trend active.`,
                 aiConfidence: '80% Neutral'
             };
@@ -793,10 +943,12 @@
             // Update UI Labels & Prices
             document.getElementById('sellPriceVal').innerText = typeof data.price === 'number' ? data.price.toFixed(2) : data.price;
             document.getElementById('buyPriceVal').innerText = typeof data.price === 'number' ? data.price.toFixed(2) : data.price;
-            document.getElementById('marketNoticeText').innerText = data.notice;
             document.getElementById('aiModalText').innerHTML = data.aiText;
             document.getElementById('aiConfidenceText').innerText = data.aiConfidence;
             document.getElementById('tradesProfitBadge').innerText = data.profitBadge;
+
+            // Refresh the real-time market status banner
+            updateMarketNotice();
 
             renderSubSymbols();
             initChart(sym, currentTimeframe);
@@ -879,7 +1031,6 @@
                             category: currentCategory,
                             price: 100.00,
                             profitBadge: '+$0.00',
-                            notice: `${query} custom feed loaded.`,
                             aiText: `<strong class="text-slate-800">Analysis for ${query}:</strong> Custom chart feed.`,
                             aiConfidence: '80% Neutral'
                         };
@@ -942,6 +1093,10 @@
         window.onload = function() {
             selectCategory('Commodities');
             switchSymbol('USOIL');
+
+            // Start the real-time market status clock (updates every second)
+            updateMarketNotice();
+            setInterval(updateMarketNotice, 1000);
         };
     </script>
 </body>

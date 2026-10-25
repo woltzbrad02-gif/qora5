@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qora Trading - Markets & News / NOONES</title>
+    <title>Qora Trading - Markets & News</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -76,21 +76,21 @@
 
             <!-- Left Header: Back Button & Logo & Deposit Funds -->
             <div class="flex items-center space-x-3">
-                <!-- Back Button pointing to dashboard/index.html -->
-                <a href="dashboard/index.html" class="flex items-center space-x-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">
+                <!-- Back Button pointing to Dashboard -->
+                <a href="../Dashboard/index.html" class="flex items-center space-x-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">
                     <i class="fa-solid fa-arrow-left text-xs"></i>
                     <span>Back</span>
                 </a>
 
                 <!-- Logo -->
-                <a href="../tradeschart/index.html" class="flex items-center space-x-2">
+                <a href="../TradesChart/index.html" class="flex items-center space-x-2">
                     <div class="w-9 h-9 rounded-full bg-black text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/30 shadow-sm">
                         <span class="tracking-tighter">QORA</span>
                     </div>
                 </a>
 
                 <!-- Deposit Funds Button -->
-                <a href="../wallet/index.html" class="flex items-center space-x-2 bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200/80 text-amber-900 text-xs font-medium px-3 py-2 rounded-xl transition-colors">
+                <a href="../deposit/index.html" class="flex items-center space-x-2 bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200/80 text-amber-900 text-xs font-medium px-3 py-2 rounded-xl transition-colors">
                     <i class="fa-regular fa-credit-card text-amber-700 text-xs"></i>
                     <span>Deposit Funds</span>
                 </a>
@@ -134,11 +134,11 @@
           <i class="fa-solid fa-rotate-right text-xs"></i>
         </button>
 
-                <a href="../settings/index.html" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors" title="Settings">
+                <a href="../More/index.html" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors" title="Settings">
                     <i class="fa-solid fa-gear text-xs"></i>
                 </a>
 
-                <a href="../profile/index.html" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors" title="Profile">
+                <a href="../More/index.html" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors" title="Profile">
                     <i class="fa-regular fa-user text-xs"></i>
                 </a>
 
@@ -153,22 +153,22 @@
     <!-- MAIN MARKETS & NEWS CONTENT -->
     <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-4 pb-12 w-full space-y-6">
 
-        <!-- PAGE TITLE -->
+        <!-- PAGE TITLE (populated from registered account name in localStorage) -->
         <div>
             <div class="text-[10px] font-bold tracking-widest text-gray-400 uppercase">MARKETS&NEWS</div>
-            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">NOONES</h1>
+            <h1 id="pageTitleName" class="text-2xl font-extrabold text-gray-900 tracking-tight">Welcome</h1>
         </div>
 
         <!-- QUICK LINKS ROW (CENTERED) -->
         <div class="flex items-center justify-center space-x-12 sm:space-x-24 mb-6 border-b border-gray-100 pb-6">
-            <a href="../tradeschart/index.html" class="group flex flex-col items-center">
+            <a href="../TradesChart/index.html" class="group flex flex-col items-center">
                 <div class="w-10 h-10 rounded-full bg-red-50 text-[#e53e3e] flex items-center justify-center mb-1.5 group-hover:bg-red-100 transition-colors">
                     <i class="fa-solid fa-house text-sm"></i>
                 </div>
                 <span class="text-xs font-medium text-gray-700 group-hover:text-red-600 transition-colors">Back to Trading</span>
             </a>
 
-            <a href="../wallet/index.html" class="group flex flex-col items-center">
+            <a href="../deposit/index.html" class="group flex flex-col items-center">
                 <div class="w-10 h-10 rounded-full bg-red-50 text-[#e53e3e] flex items-center justify-center mb-1.5 group-hover:bg-red-100 transition-colors">
                     <i class="fa-regular fa-credit-card text-sm"></i>
                 </div>
@@ -461,14 +461,14 @@
             </a>
 
             <!-- Trades Tab -->
-            <a href="../trades/index.html" class="flex flex-col items-center flex-1 py-1 text-gray-500 hover:text-gray-900 transition-colors relative">
+            <a href="../Trades/index.html" class="flex flex-col items-center flex-1 py-1 text-gray-500 hover:text-gray-900 transition-colors relative">
                 <span class="absolute -top-3 text-[9px] font-extrabold text-[#0284c7] tracking-tight">+$29.19</span>
                 <i class="fa-regular fa-folder text-sm mb-1"></i>
                 <span class="text-[10px] font-medium">Trades</span>
             </a>
 
             <!-- Trade Chart Tab -->
-            <a href="../tradeschart/index.html" class="flex flex-col items-center flex-1 py-1 text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="../TradesChart/index.html" class="flex flex-col items-center flex-1 py-1 text-gray-500 hover:text-gray-900 transition-colors">
                 <i class="fa-solid fa-house text-sm mb-1"></i>
                 <span class="text-[10px] font-medium">Trade chart</span>
             </a>
@@ -480,7 +480,7 @@
             </a>
 
             <!-- More Tab -->
-            <a href="../more/index.html" class="flex flex-col items-center flex-1 py-1 text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="../More/index.html" class="flex flex-col items-center flex-1 py-1 text-gray-500 hover:text-gray-900 transition-colors">
                 <i class="fa-regular fa-user text-sm mb-1"></i>
                 <span class="text-[10px] font-medium">More</span>
             </a>
@@ -496,6 +496,32 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        const CURRENT_USER_KEY = 'currentUser';
+
+        // ============ INIT: LOAD REGISTERED NAME FROM localStorage ============
+        function initPageTitle() {
+            let user = null;
+            try {
+                const saved = localStorage.getItem(CURRENT_USER_KEY);
+                user = saved ? JSON.parse(saved) : null;
+            } catch (e) {
+                console.error('Error parsing current user', e);
+            }
+
+            // Use the registered full name; fall back to email prefix, then "NOONES"
+            let displayName = 'NOONES';
+            if (user) {
+                if (user.fullName && user.fullName.trim() !== '') {
+                    displayName = user.fullName.trim();
+                } else if (user.email) {
+                    displayName = user.email.split('@')[0];
+                }
+            }
+
+            document.getElementById('pageTitleName').textContent = displayName;
+            document.title = 'Qora Trading - Markets & News / ' + displayName;
+        }
+
         // Category Switcher
         function switchCategory(category, element) {
             const tabs = document.querySelectorAll('.category-tab');
@@ -566,6 +592,11 @@
         function showLogoutToast() {
             showToast("Session security active. Logging out...");
         }
+
+        // BOOT
+        document.addEventListener('DOMContentLoaded', () => {
+            initPageTitle();
+        });
     </script>
 
 </body>
